@@ -21,7 +21,7 @@ For example `C:\Projects\SimpleEditorLogParser\SampleLogs\Tanks_2019_4.log`
 The location of where the output file should be made.
 The output format is a CSV file with the following fields:
 
-*Path,Extension,Category,Time (ms),Cached*
+*Path,Extension,Category,Time (ms)*
 
 For example `C:\Projects\SimpleEditorLogParser\SampleLogs\Tanks_2019_4.csv`
 
