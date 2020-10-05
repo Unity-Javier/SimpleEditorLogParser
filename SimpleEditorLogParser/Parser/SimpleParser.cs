@@ -22,15 +22,15 @@ namespace SimpleEditorLogParser.Parser
                 return;
             }
 
-            var fileContents = File.ReadAllText(EditorLogPath);
+            var fileInfo = new FileInfo(EditorLogPath);
 
-            if(fileContents.Length == 0)
+            if(fileInfo.Length == 0)
             {
                 Console.WriteLine($"File at path {EditorLogPath} was empty");
                 return;
             }
 
-            var doneImportingLines = GetAllLines(fileContents, "Done importing asset:");
+            var doneImportingLines = GetAllLines(EditorLogPath, "Done importing asset:");
             Timings = GenerateTimings(doneImportingLines);
         }
 
@@ -57,14 +57,12 @@ namespace SimpleEditorLogParser.Parser
             Console.WriteLine($"CSV file has been created at {OutputPath}");
         }
 
-        string[] GetAllLines(string file, string keyword)
+        string[] GetAllLines(string editorLogFile, string keyword)
         {
-            var allLines = file.Split('\n');
-
             List<string> validLines = new List<string>();
-            foreach (var curLine in allLines)
+            foreach (var curLine in File.ReadLines(editorLogFile))
             {
-                if (curLine.IndexOf(keyword) != -1)
+                if (curLine.Contains(keyword))
                 {
                     validLines.Add(curLine);
                 }
