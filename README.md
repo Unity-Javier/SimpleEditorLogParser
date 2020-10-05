@@ -4,6 +4,7 @@ These sample Scripts can be used to Parse an Editor.Log file and output a CSV to
 # How to use:
 
 Using Visual Studio, open up the Solution File in this project and edit the Debug command line settings
+
 Alternatively, via command line use:
 `dotnet SimpleLogParser.dll --path C:\Projects\Game01\Editor.log --output C:\Projects\Game01\CategorizedLog.csv`
 
