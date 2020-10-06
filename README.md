@@ -1,6 +1,8 @@
 # SimpleEditorLogParser
 These sample Scripts can be used to Parse an Editor.Log file and output a CSV to analyze import times for the Unity Editor
 
+![How to create an aggregated pie chart](https://github.com/Unity-Javier/SimpleEditorLogParser/blob/master/ReadMeExtras/aggregrate_graph.gif)
+
 # How to use:
 
 Using Visual Studio, open up the Solution File in this project and edit the Debug command line settings
