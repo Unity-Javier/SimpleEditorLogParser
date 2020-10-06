@@ -32,7 +32,24 @@ namespace SimpleEditorLogParser.Parser
             }
 
             var doneImportingLines = GetAllLines(EditorLogPath, "Done importing asset:");
-            Timings = GenerateTimings(doneImportingLines);
+
+            if (doneImportingLines.Length != 0)
+            {
+                Timings = GenerateTimings(doneImportingLines);
+            }
+            else
+            { 
+                //Must be a newer version
+                doneImportingLines = GetAllLines(EditorLogPath, "Start importing ");
+
+                if(doneImportingLines.Length == 0)
+                {
+                    Console.WriteLine("Log is not in a supported format. Please implement new parsing for new format present in this log file.");
+                    return;
+                }
+
+                Timings = GenerateTimings_2020_2_OR_NEWER(doneImportingLines);
+            }            
         }
 
         public void OutputCSVFile()
@@ -91,5 +108,34 @@ namespace SimpleEditorLogParser.Parser
 
             return timings.ToArray();
         }
+
+        private static AssetTimings[] GenerateTimings_2020_2_OR_NEWER(string[] doneImportingLines)
+        {
+            Regex pathRegex = new Regex("importing .*using Guid", RegexOptions.Compiled);
+            Regex secondsRegex = new Regex(@" [0-9]+\.[0-9]+ ", RegexOptions.Compiled);
+
+            List<AssetTimings> timings = new List<AssetTimings>();
+            foreach (var curLine in doneImportingLines)
+            {
+                var pathMatch = pathRegex.Match(curLine);
+                var secondsMatch = secondsRegex.Match(curLine);
+
+                if (pathMatch.Success && secondsMatch.Success)
+                {
+                    var pathCleaned = pathMatch.ToString().Replace("importing ", string.Empty);
+                    pathCleaned = pathCleaned.Replace(" using Guid", string.Empty);
+                    pathCleaned = pathCleaned.Trim();
+
+                    if (pathCleaned.IndexOf(",") >= 0)
+                        pathCleaned = "\"" + pathCleaned + "\"";
+
+                    var timing = new AssetTimings(pathCleaned, secondsMatch.ToString().Trim());
+                    timings.Add(timing);
+                }
+            }
+
+            return timings.ToArray();
+        }
+
     }
 }

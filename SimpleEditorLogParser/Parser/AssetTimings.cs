@@ -2,15 +2,15 @@
 {
     public class AssetTimings
     {
-        string assetPath;
-        string seconds;
-        string extension;
-        string categorizedExtension;
+        public string assetPath;
+        public float seconds;
+        public string extension;
+        public string categorizedExtension;
 
         public AssetTimings(string pathToAsset, string importSeconds)
         {
             assetPath = pathToAsset;
-            seconds = importSeconds;
+            float.TryParse(importSeconds, out seconds);
             extension = ParserUtils.GetExtension(assetPath, ParserUtils.kDefaultSupportedExtensions);
             categorizedExtension = ParserUtils.CategorizeExtension(extension, ParserUtils.kDefaultSupportedExtensions);
         }
