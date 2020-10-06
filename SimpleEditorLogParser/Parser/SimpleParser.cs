@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -59,16 +60,8 @@ namespace SimpleEditorLogParser.Parser
 
         string[] GetAllLines(string editorLogFile, string keyword)
         {
-            List<string> validLines = new List<string>();
-            foreach (var curLine in File.ReadLines(editorLogFile))
-            {
-                if (curLine.Contains(keyword))
-                {
-                    validLines.Add(curLine);
-                }
-            }
-
-            return validLines.ToArray();
+            var matchingLines = File.ReadLines(editorLogFile).Where(line => line.Contains(keyword));
+            return matchingLines.ToArray();
         }
 
         AssetTimings[] GenerateTimings(string[] doneImportingLines)
