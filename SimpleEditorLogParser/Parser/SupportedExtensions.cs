@@ -174,7 +174,13 @@ namespace SimpleEditorLogParser.Parser
                 ".info",
                 ".shadergraph",
                 ".uxml",
-                ".uss"
+                ".uss",
+                ".shadersubgraph",
+                ".svg",
+                ".inputactions",
+                ".tss",
+                ".prefs",
+                ".template"
             };
 
             mCategorizedExtensions = new Dictionary<string, string>()
@@ -338,7 +344,13 @@ namespace SimpleEditorLogParser.Parser
                 {".info" , "preview"},
                 {".shadergraph" , "shadergraph"},
                 {".uxml" , "UXML"},
-                {".uss" , "USS"}
+                {".uss" , "USS"},
+                {".shadersubgraph", "ShaderSubgraph" },
+                {".svg", "SVG" },
+                {".inputactions", "Input Actions" },
+                {".tss", "Theme" },
+                {".prefs", "Preferences" },
+                {".template", "Unity Template" }
             };
         }
 
